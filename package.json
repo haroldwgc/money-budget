@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview --port 80",
-    "start": "vite"
+    "serve": "vite preview"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.6",
