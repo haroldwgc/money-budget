@@ -14,5 +14,5 @@ git add -add
 
 git commit -m 'deploy'
 
-git push -f git@github.com:haroldwgc/presupuesto.git main:gh-pages
+git push -f git@github.com:haroldwgc/money-budget.git main:gh-pages
 
