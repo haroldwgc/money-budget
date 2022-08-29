@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview --port 8080",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "deploy":"gh-pages -d dist"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.6",
