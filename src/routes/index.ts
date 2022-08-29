@@ -1,4 +1,4 @@
-import {RouteRecordRaw,createRouter,createWebHistory} from 'vue-router'
+import {RouteRecordRaw,createRouter,createWebHistory, createWebHashHistory} from 'vue-router'
 import HomeView from '../views/HellowViews.vue';
 import ExpenseView from '../views/ExpenseView.vue';
 import EntryView from '../views/EntryView.vue';
@@ -55,7 +55,7 @@ const routes:RouteRecordRaw[]=[
     }
 ];
 const router=createRouter({
-    history:createWebHistory(),
+    history:createWebHashHistory(),
     routes
 });
 export default router;
