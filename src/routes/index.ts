@@ -11,33 +11,33 @@ import RegisterView from '../views/RegisterView.vue';
 
 const routes:RouteRecordRaw[]=[
     {
-        path:'/money-budget/operation',
+        path:'/operation',
         name:'operation',
         component:OperationView
     },
     {
-        path:'/money-budget/home',
+        path:'/home',
         name:'Home',
         component:HomeView
     },
     {
-        path:'/money-budget/expense',
+        path:'/expense',
         name:'expense',
         component:ExpenseView
     },
     {
-        path:'/money-budget/entry',
+        path:'/entry',
         name:'entry',
         component:EntryView
     }
     ,
     {
-        path:'/money-budget/category',
+        path:'/category',
         name:'category',
         component:CategoryViewVue
     } ,
     {
-        path:'/money-budget/budget',
+        path:'/budget',
         name:'budget',
         component:BudgetViewVue
     }
@@ -49,13 +49,12 @@ const routes:RouteRecordRaw[]=[
     }
     ,
     {
-        path:'/money-budget/register',
+        path:'/register',
         name:'register',
         component: RegisterView
     }
 ];
 const router=createRouter({
-    
     history:createWebHistory(),
     routes
 });
