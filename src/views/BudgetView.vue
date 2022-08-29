@@ -1,4 +1,5 @@
 <template>
+    <Alert />
     <Auth />
     <NavBar />
     <p></p>
@@ -19,18 +20,22 @@ import FormBudget from '../components/FormBudget.vue';
 import { host } from '../js/helpers';
 import router from '../routes';
 import Auth from '../components/Auth.vue';
+import Alert from '../components/Alert.vue';
 const counterStore = useCounterStore();
 
 watch(() => [counterStore.operationid, counterStore.componentKey], (first, second) => {
+
     let url = host + "/api/expense/byIdOperation/" + counterStore.operationid
 
     const headers = {
+        //"Content-Type": "application/json",
         Authorization: counterStore.tokenAuth,
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-        "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
+        //"Access-Control-Allow-Origin": "*",
+        //"Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+        // "Access-Control-Allow-Credentials": true,
+        //"Access-Control-Allow-Headers": "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json"
     };
-    // console.log("paso por home")
+
     axios.get(url, {
         headers
     }).then((response) => {
@@ -38,7 +43,11 @@ watch(() => [counterStore.operationid, counterStore.componentKey], (first, secon
             router.push('/')
         }
         counterStore.expenseList = response.data
+    }).catch(error => {
+
+        console.error("OperationView.vue :url ----> " + error)
     });
+
 
     let urlEntry = host + "/api/entry/byIdOperation/" + counterStore.operationid
     axios.get(urlEntry, {
@@ -48,10 +57,13 @@ watch(() => [counterStore.operationid, counterStore.componentKey], (first, secon
             router.push('/')
         }
         counterStore.entryList = response.data
+    }).catch(error => {
+
+        console.error("OperationView.vue :urlEntry ----> " + error)
     });
 
+
     let urlOperation = host + "/api/operationByUser/" + counterStore.userId
-    // console.log("paso por home")
     axios.get(urlOperation, {
         headers
     }).then((response) => {
@@ -59,10 +71,14 @@ watch(() => [counterStore.operationid, counterStore.componentKey], (first, secon
             router.push('/')
         }
         counterStore.operationList = response.data
+    }).catch(error => {
+
+        console.error("OperationView.vue :urlOperation ----> " + error)
     });
 
+
+
     let urlBudget = host + "/api/budget/byIdOperation/" + counterStore.operationid;
-    // console.log("paso por home")
     axios.get(urlBudget, {
         headers
     }).then((response) => {
@@ -70,10 +86,15 @@ watch(() => [counterStore.operationid, counterStore.componentKey], (first, secon
             router.push('/')
         }
         counterStore.budgetList = response.data
+    }).catch(error => {
+
+        console.error("OperationView.vue :urlBudget ----> " + error)
     });
 
-    let urlTotalBudget = host + "/api/budgetByExpense";
-    // console.log("paso por home")
+
+
+    let urlTotalBudget = host + "/api/budgetByExpense/"+counterStore.operationid;
+
     axios.get(urlTotalBudget, {
         headers
     }).then((response) => {
@@ -81,7 +102,11 @@ watch(() => [counterStore.operationid, counterStore.componentKey], (first, secon
             router.push('/')
         }
         counterStore.totalBudgetList = response.data
+    }).catch(error => {
+
+        console.error("OperationView.vue :urlTotalBudget ----> " + error)
     });
+
 
 });
 

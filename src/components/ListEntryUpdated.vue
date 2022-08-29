@@ -24,13 +24,14 @@
 
 <script lang="ts" setup>
 import { watch } from 'vue';
-import { Deleted, Formater, AxiosWatch, host } from '../js/helpers';
+import { Deleted, Formater, AxiosWatch, host, Alerta } from '../js/helpers';
 import { useCounterStore } from '../stores/counter';
 const counterStore = useCounterStore();
 
 var formatter = Formater()
 async function deleted(valor: any) {
     await Deleted(counterStore.entryList,valor, host+"/api/entry/");
+    Alerta('Entrada eliminada satisfactoriamente','danger')
 }
 
 watch(() => [counterStore.operationid, counterStore.componentKey], (first, second) => {

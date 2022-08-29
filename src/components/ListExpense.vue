@@ -17,7 +17,6 @@
                                 <tr>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Categoria</th>
-                                    <th scope="col">Tipo Gasto</th>
                                     <th scope="col">Monto</th>
                                     <th scope="col">Fecha</th>
                                     <th scope="col"></th>
@@ -27,12 +26,23 @@
                                 <tr v-for="item in counterStore.expenseList"  >
                                     <td style="line-height: 30px" >{{ item.name }}</td>
                                     <td style="line-height: 30px" >{{ item.nameCategory }}</td>
-                                    <td style="line-height: 30px" >{{ item.type }}</td>
                                     <td style="line-height: 30px" >{{formatter.format(item.amount)}}</td>
                                     <td style="line-height: 30px" >{{ new Date(item.dateAmount).toLocaleDateString() }}</td>
                                     <td style="line-height: 30px" ><img v-bind:src="item.iconCategory" class="img-fluid mx-auto" alt="..."
                                             style=" width:30px ; height: 30px;">
                                     </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Total</th>
+                                    <td colspan="1" class="table-active"></td> 
+                                    <td colspan="1" class="table-active" style="color: green">
+                                      <td colspan="1" class="table-active"></td>
+                                        <h5>{{ formatter.format(counterStore.totalExpense) }}</h5>
+                                    </td>
+                                    <td colspan="1" class="table-active"></td>
+                                      <td colspan="1" class="table-active"></td>
+
+
                                 </tr>
                             </tbody>
                         </table>
@@ -47,7 +57,13 @@
 <script lang="ts" setup>
 import { Formater } from '../js/helpers';
 import { useCounterStore } from '../stores/counter';
+let cont = 0;
+
 const counterStore = useCounterStore();
+
+counterStore.expenseList.map(x => {
+    cont += x.amount
+})
 var formatter = Formater()
 
 

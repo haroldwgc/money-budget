@@ -47,7 +47,7 @@ watch(() => [counterStore.operationid, counterStore.componentKey], (first, secon
  
     AxiosWatch(counterStore.expenseList, host+"/api/expense/byIdOperation/", true)
     AxiosWatch(counterStore.entryList, host+"/api/entry/byIdOperation/", true)
-    AxiosWatch(counterStore.operationList, host+"/api/operation", false)
+    AxiosWatch(counterStore.operationList, host + "/api/operationByUser/" + counterStore.userId, false)
 });
 
 </script>

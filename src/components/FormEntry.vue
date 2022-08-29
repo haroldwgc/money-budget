@@ -24,7 +24,7 @@
 <script lang="ts" setup>
 import axios from 'axios';
 import { watch } from 'vue';
-import Send, { AxiosWatch, host } from '../js/helpers';
+import Send, { Alerta, AxiosWatch, host } from '../js/helpers';
 import EntryModel from '../models/EntryModel';
 import { useCounterStore } from '../stores/counter';
 const counterStore = useCounterStore();
@@ -34,8 +34,8 @@ let entryModel: EntryModel = new EntryModel();
 async function insertar() {
     entryModel.idOperation = counterStore.operationid
     entryModel.name = entryModel.name;
-    console.log(entryModel)
     await Send(entryModel, host+"/api/entry");
+    Alerta('Entrada creada satisfactoriamente','success')
 }
 
 watch(() => [counterStore.operationid, counterStore.componentKey], (first, second) => {

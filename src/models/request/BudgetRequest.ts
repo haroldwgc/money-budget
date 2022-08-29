@@ -4,6 +4,13 @@ export default class BudgetRequest {
     public type: string = '';
     public amount: number = 0;
 }
+export default interface BudgetRequest {
+     idOperation: string ;
+     idCategory: string ;
+     type: string ;
+     amount: number ;
+}
+
 
 
 

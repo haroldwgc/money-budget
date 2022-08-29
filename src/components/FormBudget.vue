@@ -33,7 +33,7 @@
 </template>
 <script lang="ts" setup>
 import { watch } from 'vue';
-import Send, { AxiosWatch, host } from '../js/helpers';
+import Send, { Alerta, AxiosWatch, host } from '../js/helpers';
 import BudgetRequest from '../models/request/BudgetRequest';
 import { useCounterStore } from '../stores/counter';
 
@@ -45,6 +45,8 @@ async function insertar() {
     budgetRequest.idOperation = counterStore.operationid;
 
     await Send(budgetRequest, host + "/api/budget");
+
+    Alerta('Item de presupuesto creado satisfactoriamente','success')
 }
 
 

@@ -25,7 +25,7 @@
 <script lang="ts" setup>
 import axios from 'axios';
 import { watch } from 'vue';
-import Send, { AxiosWatch, host } from '../js/helpers';
+import Send, { Alerta, AxiosWatch, host } from '../js/helpers';
 import CategoryRequest from '../models/request/CategoryRequest';
 import { useCounterStore } from '../stores/counter';
 
@@ -35,6 +35,7 @@ let categoryRequest: CategoryRequest = new CategoryRequest();
 
 async function insertar() {
     await Send(categoryRequest, host + "/api/category");
+    Alerta('categoria creada satisfactoriamente','success')
 }
 
 watch(() => [counterStore.componentKey], (first, second) => {

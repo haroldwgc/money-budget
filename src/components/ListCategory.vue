@@ -42,16 +42,16 @@
 <script lang="ts" setup>
 import axios from 'axios';
 import { watch } from 'vue';
-import { AxiosWatch, Deleted, host } from '../js/helpers';
+import { Alerta, AxiosWatch, Deleted, host } from '../js/helpers';
 import { useCounterStore } from '../stores/counter';
 const counterStore = useCounterStore();
 
 async function deleted(valor: any) {
-    await Deleted(counterStore.categoryList,valor,host+"/api/category/");  
+    await Deleted(counterStore.categoryList,valor,host+"/api/category/"); 
+    Alerta('categoria eliminada satisfactoriamente','danger') 
 }
 watch(() => [counterStore.operationid, counterStore.componentKey], (first, second) => {
     let url = host+"/api/category";
-    // console.log("paso por home")
     axios.get(url).then((response) => (counterStore.categoryList = response.data));
 
 AxiosWatch(counterStore.categoryList, host+"/category", false)

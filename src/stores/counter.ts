@@ -7,6 +7,8 @@ import EntryRequest from '../models/request/EntryRequest'
 import BudgetModel from '../models/BudgetModels'
 import TotalBudgetRequest from '../models/request/TotalBudgetReques'
 import UserModel from '../models/UserModel'
+import BudgetRequest from '../models/request/BudgetRequest'
+
 
 export const useCounterStore = defineStore('counter', {
     state: () => ({
@@ -22,12 +24,14 @@ export const useCounterStore = defineStore('counter', {
         totalBudgetList: [] as TotalBudgetRequest[],
         totalExpense: 0,
         totalEntry: 0,
+        totalBudgetExpense: 0,
         restAmount: 0,
         componentKey: 0,
         tokenAuth:'',
         user: UserModel,
         userId:'',
-        expense: ExpenseModel
+        expense: ExpenseModel ,
+        budget: BudgetModel
     }),
     actions: {
         getIdOperation(value: String) {

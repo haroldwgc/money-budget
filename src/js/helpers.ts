@@ -1,4 +1,5 @@
 import axios from "axios";
+import ExpenseRequest from "../models/request/ExpenseRequest";
 import router from "../routes";
 import { useCounterStore } from '../stores/counter';
 
@@ -10,41 +11,43 @@ export async function Login(user: any) {
         }
     }).then((response) => {
         counterStore.tokenAuth = response.data.token;
-        counterStore.userId=response.data.user._id;
-        console.log(response.data.token);
+        counterStore.userId = response.data.user._id;
     }).catch((error) => {
         if (error.response) {
-            console.log(error.response.data); // => the response payload 
+            console.error(error.response.data); // => the response payload 
         }
     });
-
     router.push("/home")
 }
 
 export function AxiosWatch(list: any, uri: string, useOperationId: boolean) {
     const counterStore = useCounterStore();
     let url = "";
-    console.log("token "+counterStore.tokenAuth)
     if (useOperationId)
         url = uri + counterStore.operationid;
     else
         url = uri;
-        const headers = {
-            Authorization: counterStore.tokenAuth,
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-            "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
-        };
+    const headers = {
+              //"Content-Type": "application/json",
+              Authorization: counterStore.tokenAuth,
+              //"Access-Control-Allow-Origin": "*",
+              //"Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+              // "Access-Control-Allow-Credentials": true,
+              //"Access-Control-Allow-Headers": "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json"
+    };
 
     axios.get(url, {
         headers
     }).then((response) => {
-        if (response.data.code == 400 ||response.data===undefined) {
-            console.log(response.data)
+        if (response.data.code == 400 || response.data === undefined) {
             router.push('/')
         }
         list = response.data
+    }).catch(error => {
+
+        console.error("Helper.vue :url ----> " + error)
     });
+
 
 }
 
@@ -52,10 +55,12 @@ export function Deleted(list: any, valor: any, uri: string) {
     const counterStore = useCounterStore();
     let urlOperation = uri + valor;
     const headers = {
-        Authorization: counterStore.tokenAuth,
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-        "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
+               //"Content-Type": "application/json",
+               Authorization: counterStore.tokenAuth,
+               //"Access-Control-Allow-Origin": "*",
+               //"Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+               // "Access-Control-Allow-Credentials": true,
+               //"Access-Control-Allow-Headers": "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json"
     };
     axios.delete(urlOperation, { headers }).then((response) => {
         if (response.data.code == 400) {
@@ -66,32 +71,65 @@ export function Deleted(list: any, valor: any, uri: string) {
     counterStore.componentKey += 1;
 }
 
+export async function Updated(list: any,req:any, valor: any, uri: string) {
+    const counterStore = useCounterStore();
+
+    const headers = {
+        Authorization: counterStore.tokenAuth,
+    };
+    await axios.put(uri, req, {
+        headers
+    }).then((response) => {
+        if (response.data.code == 400) {
+            router.push('/')
+        }
+        list = response.data
+    }).catch(error => {
+
+        console.error("ListExpenseUpdate.vue :urlExpense ----> " + error)
+    });
+
+}
+
 async function Send(model: any, uri: string) {
 
     const counterStore = useCounterStore();
     const headers = {
-        Authorization: counterStore.tokenAuth,
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-        "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
+               //"Content-Type": "application/json",
+               Authorization: counterStore.tokenAuth,
+               //"Access-Control-Allow-Origin": "*",
+               //"Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+               // "Access-Control-Allow-Credentials": true,
+               //"Access-Control-Allow-Headers": "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json"
     };
     let url = uri;
-    console.log(model)
     await axios.post(url, model, {
         headers
     }).then((response) => {
         if (response.data.code == 400) {
             router.push('/')
         }
-        console.log(model)
-        //console.log(response.data);
     }).catch((error) => {
         if (error.response) {
-            console.log(error.response.data); // => the response payload 
+            console.error(error.response.data); // => the response payload 
         }
     });
     counterStore.componentKey += 1;
 }
+
+export function Alerta(message: string, type: string) {
+    console.log("paso por aqui")
+    const wrapper = document.createElement('div')
+    wrapper.innerHTML = [
+        `<div class="alert alert-${type} alert-dismissible fade show" role="alert">`,
+        `   <div>${message}</div>`,
+        '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+        '</div>'
+    ].join('')
+    document.getElementById('liveAlertPlaceholder')?.append(wrapper);
+
+}
+
 
 export function Formater() {
 
@@ -103,6 +141,6 @@ export function Formater() {
     return result;
 }
 
-export const host="https://shrouded-gorge-06880.herokuapp.com";
+export const host = "https://shrouded-gorge-06880.herokuapp.com";
 //export const host = "http://localhost:9000";
 export default Send;

@@ -1,12 +1,15 @@
-export default class BudgetModel {
+export default abstract class BudgetModel {
 
-    public _id: string = '';
-    public idOperation: string = '';
-    public type: string = '';
-    public idCategory: string = '';
-    public amount: number = 0;
+    public static _id: string = '';
+    public static idOperation: string = '';
+    public static type: string = '';
+    public static idCategory: string = '';
+    public static amount: number = 0;
 }
-
-
-
-export type BudgetModels=Array<BudgetModel>;
+export default interface  InterfaceBudgetModel {
+      _id: string ;
+      idOperation: string ;
+      type: string ;
+      idCategory: string ;
+      amount: number ;
+}

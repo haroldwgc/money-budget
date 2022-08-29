@@ -29,7 +29,7 @@
     <p></p>
 </template>
 <script lang="ts" setup>
-import Send, { host } from '../js/helpers';
+import Send, { Alerta, host } from '../js/helpers';
 import UserRequest from '../models/request/UserRequest';
 import router from '../routes';
 let userRequest: UserRequest = new UserRequest();
@@ -38,6 +38,7 @@ let userRequest: UserRequest = new UserRequest();
 async function insertar() {
 
     await Send(userRequest, host + "/api/user");
+    Alerta('Usuario creado satisfactoriamente','success')
     router.push("/")
 }
 

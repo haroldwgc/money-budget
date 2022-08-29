@@ -1,5 +1,5 @@
 <template>
-
+    <Alert/>
     <Auth />
     <NavBar />
     <p></p>
@@ -22,22 +22,26 @@ import OperationList from '../components/OperationLis.vue'
 import ListExpense from '../components/ListExpense.vue';
 import ListEntry from '../components/ListEntry.vue';
 import Summary from '../components/Summary.vue';
-import { host } from '../js/helpers';
+import { host,Alerta } from '../js/helpers';
 import router from '../routes';
 import Auth from '../components/Auth.vue';
+import Alert from '../components/Alert.vue';
+
 
 const counterStore = useCounterStore();
 
 watch(() => [counterStore.operationid, counterStore.componentKey], (first, second) => {
     let url = host + "/api/expense/byIdOperation/" + counterStore.operationid
-    console.log("nuevo token " + counterStore.tokenAuth)
+
     const headers = {
+        //"Content-Type": "application/json",
         Authorization: counterStore.tokenAuth,
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-        "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
+        //"Access-Control-Allow-Origin": "*",
+        //"Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+        // "Access-Control-Allow-Credentials": true,
+        //"Access-Control-Allow-Headers": "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json"
     };
-    // console.log("paso por home")
+
     axios.get(url, {
         headers
     }).then((response) => {
@@ -45,7 +49,12 @@ watch(() => [counterStore.operationid, counterStore.componentKey], (first, secon
             router.push('/')
         }
         counterStore.expenseList = response.data
+    }).catch(error => {
+
+        console.error("HelloView.vue :url ----> " + error)
     });
+
+
 
     let urlEntry = host + "/api/entry/byIdOperation/" + counterStore.operationid
     axios.get(urlEntry, {
@@ -55,10 +64,16 @@ watch(() => [counterStore.operationid, counterStore.componentKey], (first, secon
             router.push('/')
         }
         counterStore.entryList = response.data
+    }).catch(error => {
+
+        console.error("HelloView.vue :urlEntry ----> " + error)
     });
 
-    let urlOperation = host + "/api/operationByUser/"+ counterStore.userId
-    // console.log("paso por home")
+
+
+
+    let urlOperation = host + "/api/operationByUser/" + counterStore.userId
+
     axios.get(urlOperation, {
         headers
     }).then((response) => {
@@ -66,10 +81,16 @@ watch(() => [counterStore.operationid, counterStore.componentKey], (first, secon
             router.push('/')
         }
         counterStore.operationList = response.data
+    }).catch(error => {
+
+        console.error("HelloView.vue :urlOperation ----> " + error)
     });
 
+
+
+
     let urlBudget = host + "/api/budget/byIdOperation/" + counterStore.operationid;
-    // console.log("paso por home")
+
     axios.get(urlBudget, {
         headers
     }).then((response) => {
@@ -77,10 +98,15 @@ watch(() => [counterStore.operationid, counterStore.componentKey], (first, secon
             router.push('/')
         }
         counterStore.budgetList = response.data
+    }).catch(error => {
+
+        console.error("HelloView.vue :urlBudget ----> " + error)
     });
 
-    let urlTotalBudget = host + "/api/budgetByExpense";
-    // console.log("paso por home")
+
+
+    let urlTotalBudget = host + "/api/budgetByExpense/"+counterStore.operationid;
+
     axios.get(urlTotalBudget, {
         headers
     }).then((response) => {
@@ -88,68 +114,14 @@ watch(() => [counterStore.operationid, counterStore.componentKey], (first, secon
             router.push('/')
         }
         counterStore.totalBudgetList = response.data
+    }).catch(error => {
+
+        console.error("HelloView.vue :urlTotalBudget ----> " + error)
     });
 
-});
-onMounted(()=>{
-    let url = host + "/api/expense/byIdOperation/" + counterStore.operationid
-    console.log("nuevo token " + counterStore.tokenAuth)
-    const headers = { Authorization: counterStore.tokenAuth };
-    // console.log("paso por home")
-    axios.get(url, {
-        headers
-    }).then((response) => {
-        if (response.data.code == 400) {
-            router.push('/')
-        }
-        counterStore.expenseList = response.data
-    });
-
-    let urlEntry = host + "/api/entry/byIdOperation/" + counterStore.operationid
-    axios.get(urlEntry, {
-        headers
-    }).then((response,) => {
-        if (response.data.code == 400) {
-            router.push('/')
-        }
-        counterStore.entryList = response.data
-    });
-
-    let urlOperation = host + "/api/operationByUser/"+ counterStore.userId
-    // console.log("paso por home")
-    axios.get(urlOperation, {
-        headers
-    }).then((response) => {
-        if (response.data.code == 400) {
-            router.push('/')
-        }
-        counterStore.operationList = response.data
-    });
-
-    let urlBudget = host + "/api/budget/byIdOperation/" + counterStore.operationid;
-    // console.log("paso por home")
-    axios.get(urlBudget, {
-        headers
-    }).then((response) => {
-        if (response.data.code == 400) {
-            router.push('/')
-        }
-        counterStore.budgetList = response.data
-    });
-
-    let urlTotalBudget = host + "/api/budgetByExpense";
-    // console.log("paso por home")
-    axios.get(urlTotalBudget, {
-        headers
-    }).then((response) => {
-        if (response.data.code == 400) {
-            router.push('/')
-        }
-        counterStore.totalBudgetList = response.data
-    });
 
     let urlCategory = host + "/api/category";
-    // console.log("paso por home")
+
     axios.get(urlCategory, {
         headers
     }).then((response) => {
@@ -157,12 +129,119 @@ onMounted(()=>{
             router.push('/')
         }
         counterStore.categoryList = response.data
+    }).catch(error => {
+
+        console.error("HelloView.vue :urlCategory ----> " + error)
     });
+
+});
+onMounted(() => {
+    let url = host + "/api/expense/byIdOperation/" + counterStore.operationid
+
+    const headers = {
+        //"Content-Type": "application/json",
+        Authorization: counterStore.tokenAuth,
+        //"Access-Control-Allow-Origin": "*",
+        //"Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+        // "Access-Control-Allow-Credentials": true,
+        //"Access-Control-Allow-Headers": "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json"
+    };
+
+    axios.get(url, {
+        headers
+    }).then((response) => {
+        if (response.data.code == 400) {
+            router.push('/')
+        }
+        counterStore.expenseList = response.data
+    }).catch(error => {
+
+        console.error("HelloView.vue :url ----> " + error)
+    });
+
+
+
+    let urlEntry = host + "/api/entry/byIdOperation/" + counterStore.operationid
+    axios.get(urlEntry, {
+        headers
+    }).then((response,) => {
+        if (response.data.code == 400) {
+            router.push('/')
+        }
+        counterStore.entryList = response.data
+    }).catch(error => {
+
+        console.error("HelloView.vue :urlEntry ----> " + error)
+    });
+
+
+    let urlOperation = host + "/api/operationByUser/" + counterStore.userId
+
+    axios.get(urlOperation, {
+        headers
+    }).then((response) => {
+        if (response.data.code == 400) {
+            router.push('/')
+        }
+        counterStore.operationList = response.data
+    }).catch(error => {
+
+        console.error("HelloView.vue :urlOperation ----> " + error)
+    });
+
+
+
+
+    let urlBudget = host + "/api/budget/byIdOperation/" + counterStore.operationid;
+
+    axios.get(urlBudget, {
+        headers
+    }).then((response) => {
+        if (response.data.code == 400) {
+            router.push('/')
+        }
+        counterStore.budgetList = response.data
+    }).catch(error => {
+
+        console.error("HelloView.vue :urlBudget ----> " + error)
+    });
+
+
+
+    let urlTotalBudget = host + "/api/budgetByExpense/"+counterStore.operationid;
+
+    axios.get(urlTotalBudget, {
+        headers
+    }).then((response) => {
+        if (response.data.code == 400) {
+            router.push('/')
+        }
+        counterStore.totalBudgetList = response.data
+    }).catch(error => {
+
+        console.error("HelloView.vue :urlTotalBudget ----> " + error)
+    });
+
+
+    let urlCategory = host + "/api/category";
+
+    axios.get(urlCategory, {
+        headers
+    }).then((response) => {
+        if (response.data.code == 400) {
+            router.push('/')
+        }
+        counterStore.categoryList = response.data
+    }).catch(error => {
+
+        console.error("HelloView.vue :urlCategory ----> " + error)
+    });
+
 
 
 })
 watchEffect(() => {
-    
+
     let totalEntry = 0;
     let totalExpense = 0;
     if (counterStore.entryList.length > 0) {

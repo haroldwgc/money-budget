@@ -1,5 +1,5 @@
 <template>
-    <h3 class="fw-bold text-uppercase">Insertar gasto: {{counterStore.operationName}}</h3>
+    <h3 class="fw-bold text-uppercase">Insertar gasto: {{ counterStore.operationName }}</h3>
 
     <div class="form-floating">
         <input type="text" v-model="expenseModel.name" class="form-control" placeholder="Leave a comment here"
@@ -44,7 +44,7 @@
 
 <script lang="ts" setup>
 import { watch } from 'vue';
-import Send, { AxiosWatch, host } from '../js/helpers';
+import Send, { Alerta, AxiosWatch, host } from '../js/helpers';
 import ExpenseRequest from '../models/request/ExpenseRequest';
 import { useCounterStore } from '../stores/counter';
 
@@ -57,13 +57,14 @@ async function insertar() {
     expenseModel.idOperation = counterStore.operationid
     expenseModel.iconCategory = expenseModel.nameCategory.split("|")[1];
     expenseModel.nameCategory = expenseModel.nameCategory.split("|")[0];
-    await Send(expenseModel, host+"/api/expense");   
+    await Send(expenseModel, host + "/api/expense");
+    Alerta('gasto creado satisfactoriamente', 'success')
 }
 
 
 watch(() => [counterStore.operationid, counterStore.componentKey], (first, second) => {
-    AxiosWatch( counterStore.expenseList,host+"/api/expense/byIdOperation/", true)
-    AxiosWatch( counterStore.totalBudgetList,host+"/api/budgetByExpense", false)
+    AxiosWatch(counterStore.expenseList, host + "/api/expense/byIdOperation/", true)
+    AxiosWatch(counterStore.totalBudgetList, host + "/api/budgetByExpense/", true)
 });
 
 </script>

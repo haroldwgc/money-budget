@@ -17,17 +17,18 @@ import axios from 'axios';
 import { watch } from 'vue';
 import OperationModels from '../models/OperationModel';
 import { useCounterStore } from '../stores/counter';
-import Send, { AxiosWatch, host } from '../js/helpers';
+import Send, { Alerta, AxiosWatch, host } from '../js/helpers';
 const counterStore = useCounterStore();
 let operationModel: OperationModels = new OperationModels();
 
 async function insertar() {
     operationModel.idUser=counterStore.userId;
-    await Send(operationModel, host+"/api/operation");
+    await Send(operationModel, host + "/api/operation");
+    Alerta('Operación creada satisfactoriamente','success')
 }
 
 watch(() => [counterStore.componentKey], (first, second) => {
-    AxiosWatch(counterStore.operationList, host+"api/operationByUser/"+counterStore.userId, false)
+    AxiosWatch(counterStore.operationList, host+"/api/operationByUser/"+counterStore.userId, false)
 });
 
 </script>

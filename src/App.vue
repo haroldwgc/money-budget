@@ -8,29 +8,26 @@ import router from './routes';
 
 const counterStore = useCounterStore();
 onMounted(() => {
-
-  console.log(counterStore.numberOfChanges);
+  
   const headers = {
+           //"Content-Type": "application/json",
         Authorization: counterStore.tokenAuth,
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-        "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
-    };
-  let urlexpense = host +"api/operationByUser/"+counterStore.userId
-  axios.get(urlexpense, { headers }).then((response) =>{
-     if (response.data.code == 400) {
-      router.push('/')
-    }
-     (counterStore.operationList = response.data)
-  });
-
+        //"Access-Control-Allow-Origin": "*",
+        //"Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+        // "Access-Control-Allow-Credentials": true,
+        //"Access-Control-Allow-Headers": "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json"
+  };
   let urlCategory = host + "/api/category"
   axios.get(urlCategory, { headers }).then((response) => {
-     if (response.data.code == 400) {
+    if (response.data.code == 400) {
       router.push('/')
     }
     (counterStore.categoryList = response.data)
+  }).catch(error => {
+
+    console.error("APP.vue :urlCategory ----> " + error)
   });
+
 
   let urlEntry = host + "/api/entry/byIdOperation/" + counterStore.operationid
   axios.get(urlEntry, { headers }).then((response) => {
@@ -39,6 +36,9 @@ onMounted(() => {
       router.push('/')
     }
     counterStore.entryList = response.data
+  }).catch(error => {
+
+    console.error("APP.vue :urlEntry ----> " + error)
   });
 
 })
