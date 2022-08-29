@@ -51,7 +51,7 @@
                   <th scope="row">Total</th>
                   <td colspan="1" class="table-active"></td>
                   <td colspan="1" class="table-active" style="color: orange">
-                     <h5>{{ formatter.format(counterStore.totalBudgetExpense) }}</h5>
+                     <h5 :style="[counterStore.totalBudgetExpense < counterStore.totalEntry ? { color: 'red' } : { color: 'green' }]">{{ formatter.format(counterStore.totalBudgetExpense) }}</h5>
                   </td>
                   <td :style="[counterStore.restAmount < 0 ? { color: 'red' } : { color: 'green' }]">
                      <h5>{{ formatter.format(counterStore.totalExpense) }}</h5>
