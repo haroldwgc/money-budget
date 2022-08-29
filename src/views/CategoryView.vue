@@ -17,7 +17,7 @@ import axios from 'axios';
 import ListCategory from '../components/ListCategory.vue';
 import FormCategory from '../components/FormCategory.vue';
 import { host } from '../js/helpers';
-import { router } from '../routes';
+import router  from '../routes';
 import Alert from '../components/Alert.vue';
 import Auth from '../components/Auth.vue';
 const counterStore = useCounterStore();

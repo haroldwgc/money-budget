@@ -21,7 +21,7 @@
 <script lang="ts" setup>
 import { Login } from '../js/helpers';
 import UserRequest from '../models/request/UserRequest';
-import { router } from '../routes';
+import  router  from '../routes';
 import Alert from '../components/Alert.vue';
 const usetRequest = new UserRequest()
 function login() {

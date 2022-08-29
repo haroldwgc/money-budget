@@ -4,7 +4,7 @@ import { onMounted } from 'vue';
 import { useCounterStore } from './stores/counter'
 import axios from 'axios'
 import { host } from './js/helpers';
-import { router } from './routes';
+import  router  from './routes';
 
 const counterStore = useCounterStore();
 onMounted(() => {

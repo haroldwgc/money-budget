@@ -1,5 +1,5 @@
 import axios from "axios";
-import { router } from '../routes';
+import router  from '../routes';
 import { useCounterStore } from '../stores/counter';
 
 export async function Login(user: any) {

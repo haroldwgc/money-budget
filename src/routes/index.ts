@@ -54,7 +54,8 @@ const routes:RouteRecordRaw[]=[
         component: RegisterView
     }
 ];
-export const router=createRouter({
-    history:createWebHashHistory("https://haroldwgc.github.io/money-budget#"),
+const router=createRouter({
+    history:createWebHashHistory("#"),
     routes
 });
+export default router;
