@@ -12,12 +12,15 @@ export async function Login(user: any) {
     }).then((response) => {
         counterStore.tokenAuth = response.data.token;
         counterStore.userId = response.data.user._id;
+        router.push("/home")
     }).catch((error) => {
         if (error.response) {
+            router.push("/")
+            Alerta("No existe usuario registrado, por favor registrese","danger");
             console.error(error.response.data); // => the response payload 
         }
     });
-    router.push("/home")
+    
 }
 
 export function AxiosWatch(list: any, uri: string, useOperationId: boolean) {

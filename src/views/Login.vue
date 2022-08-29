@@ -1,5 +1,5 @@
 <template>
-
+ <Alert/>
   <div class="position-absolute top-50 start-50 translate-middle" style="width: 400px;">
     <div class="input-group mb-3">
       <span class="input-group-text" id="basic-addon1">@</span>
@@ -22,6 +22,7 @@
 import { Login } from '../js/helpers';
 import UserRequest from '../models/request/UserRequest';
 import router from '../routes';
+import Alert from '../components/Alert.vue';
 const usetRequest = new UserRequest()
 function login() {
   Login(usetRequest);
