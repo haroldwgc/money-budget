@@ -1,5 +1,5 @@
 <template>
-    <Alert/>
+    <Alert />
     <Auth />
     <NavBar />
     <p></p>
@@ -22,8 +22,8 @@ import OperationList from '../components/OperationLis.vue'
 import ListExpense from '../components/ListExpense.vue';
 import ListEntry from '../components/ListEntry.vue';
 import Summary from '../components/Summary.vue';
-import { host,Alerta } from '../js/helpers';
-import  router  from '../routes';
+import { host, Alerta } from '../js/helpers';
+import router from '../routes';
 import Auth from '../components/Auth.vue';
 import Alert from '../components/Alert.vue';
 
@@ -105,7 +105,7 @@ watch(() => [counterStore.operationid, counterStore.componentKey], (first, secon
 
 
 
-    let urlTotalBudget = host + "/api/budgetByExpense/"+counterStore.operationid;
+    let urlTotalBudget = host + "/api/budgetByExpense/" + counterStore.operationid;
 
     axios.get(urlTotalBudget, {
         headers
@@ -208,7 +208,7 @@ onMounted(() => {
 
 
 
-    let urlTotalBudget = host + "/api/budgetByExpense/"+counterStore.operationid;
+    let urlTotalBudget = host + "/api/budgetByExpense/" + counterStore.operationid;
 
     axios.get(urlTotalBudget, {
         headers

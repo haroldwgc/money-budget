@@ -37,6 +37,7 @@ export const useCounterStore = defineStore('counter', {
         getIdOperation(value: String) {
             this.operationid = value.split('|')[0];
             this.operationName = value.split('|')[1];
+            this.componentKey += 1;
         }
     }
 })
