@@ -55,6 +55,6 @@ const routes:RouteRecordRaw[]=[
     }
 ];
 export const router=createRouter({
-    history:createWebHashHistory("https://haroldwgc.github.io#"),
+    history:createWebHashHistory("https://haroldwgc.github.io/money-budget#"),
     routes
 });
