@@ -8,6 +8,7 @@ import BudgetViewVue from '../views/BudgetView.vue';
 import LoginView from '../views/Login.vue';
 import RegisterView from '../views/RegisterView.vue';
 
+
 const routes:RouteRecordRaw[]=[
     {
         path:'/operation',

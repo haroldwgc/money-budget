@@ -1,5 +1,4 @@
 import axios from "axios";
-import ExpenseRequest from "../models/request/ExpenseRequest";
 import router from "../routes";
 import { useCounterStore } from '../stores/counter';
 
@@ -12,12 +11,17 @@ export async function Login(user: any) {
     }).then((response) => {
         counterStore.tokenAuth = response.data.token;
         counterStore.userId = response.data.user._id;
+        if(response.data.code===400){
+            Alerta("No existe usuario registrado, por favor registrese","danger");
+            router.push("/")
+        }
         router.push("/home")
     }).catch((error) => {
         if (error.response) {
-            router.push("/")
+           
             Alerta("No existe usuario registrado, por favor registrese","danger");
             console.error(error.response.data); // => the response payload 
+            router.push("/")
         }
     });
     
