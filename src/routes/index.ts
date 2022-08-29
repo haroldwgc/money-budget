@@ -54,8 +54,7 @@ const routes:RouteRecordRaw[]=[
         component: RegisterView
     }
 ];
-const router=createRouter({
+export const router=createRouter({
     history:createWebHashHistory(),
     routes
 });
-export default router;

@@ -4,7 +4,7 @@ import './style.css'
 import App from './App.vue'
 import router from './routes'
 import { createPinia } from 'pinia'
-
+import { router  } from './routes'
 createApp(App)
 .use(createPinia())
 .use(router)

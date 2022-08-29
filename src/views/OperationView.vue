@@ -15,7 +15,7 @@ import { watch } from 'vue';
 import axios from 'axios';
 import ListOperation from '../components/ListOperation.vue';
 import { host } from '../js/helpers';
-import router from '../routes';
+import { router } from '../routes';
 import Auth from '../components/Auth.vue';
 import Alert from '../components/Alert.vue';
 

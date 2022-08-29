@@ -18,9 +18,9 @@ import OperationList from '../components/OperationLis.vue'
 import ListBudget from '../components/ListBudget.vue';
 import FormBudget from '../components/FormBudget.vue';
 import { host } from '../js/helpers';
-import router from '../routes';
 import Auth from '../components/Auth.vue';
 import Alert from '../components/Alert.vue';
+import { router } from '../routes';
 const counterStore = useCounterStore();
 
 watch(() => [counterStore.operationid, counterStore.componentKey], (first, second) => {

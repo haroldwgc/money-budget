@@ -23,7 +23,7 @@ import ListExpense from '../components/ListExpense.vue';
 import ListEntry from '../components/ListEntry.vue';
 import Summary from '../components/Summary.vue';
 import { host,Alerta } from '../js/helpers';
-import router from '../routes';
+import { router } from '../routes';
 import Auth from '../components/Auth.vue';
 import Alert from '../components/Alert.vue';
 
