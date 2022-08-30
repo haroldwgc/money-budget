@@ -55,7 +55,6 @@ export function AxiosWatch(list: any, uri: string, useOperationId: boolean) {
         console.error("Helper.vue :url ----> " + error)
     });
 
-
 }
 
 export function Deleted(list: any, valor: any, uri: string) {
