@@ -95,7 +95,7 @@ export async function Updated(list: any,req:any, valor: any, uri: string) {
 
         console.error("ListExpenseUpdate.vue :urlExpense ----> " + error)
     });
-
+    counterStore.componentKey += 1;
 }
 
 async function Send(model: any, uri: string) {

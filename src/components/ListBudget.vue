@@ -21,17 +21,17 @@
                                     <th scope="col">Monto presupuestado</th>
                                     <th scope="col"></th>
                                     <th scope="col"></th>
-                                    
+
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="item in counterStore.budgetList">
-                                <td><img v-bind:src="item.idCategory.split('|')[1]" class="img-fluid mx-auto"
+                                    <td><img v-bind:src="item.idCategory.split('|')[1]" class="img-fluid mx-auto"
                                             alt="..." style=" width:30px ; height: 30px;"></td>
-                                    <td>{{ item.type }}</td>
-                                    <td>{{ item.idCategory.split("|")[0] }}</td>
-                                    <td>{{ formatter.format(item.amount) }}</td>
-                                       <td><img src="https://img.icons8.com/color/344/edit--v1.png"
+                                    <td>{{  item.type  }}</td>
+                                    <td>{{  item.idCategory.split("|")[0]  }}</td>
+                                    <td>{{  formatter.format(item.amount)  }}</td>
+                                    <td><img src="https://img.icons8.com/color/344/edit--v1.png"
                                             @click="loadDataModalExpense(item)" class="img-fluid mx-auto " alt="..."
                                             style=" width:30px ; height: 30px; cursor:pointer;" data-bs-toggle="modal"
                                             data-bs-target="#budgetUpdate">
@@ -39,9 +39,19 @@
                                     <td><img src="https://img.icons8.com/carbon-copy/344/filled-trash.png"
                                             @click="deleted(item._id)" class="img-fluid mx-auto" alt="..."
                                             style=" width:30px ; height: 30px; cursor:pointer;">
-                                    
+
                                     </td>
 
+                                </tr>
+                                <tr>
+                                    <th scope="row">Total</th>
+                                    <td colspan="1" class="table-active"></td>
+                                    <td colspan="1" class="table-active"></td>
+                                    <td :style="[counterStore.restAmount < 0 ? { color: 'red' } : { color: 'green' }]">
+                                        <h5>{{  formatter.format(counterStore.totalBudgetExpense)  }}</h5>
+                                    </td>
+                                    <td colspan="1" class="table-active"></td>
+                                    <td colspan="1" class="table-active"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -76,7 +86,7 @@
 
 </template>
 <script lang="ts" setup>
-import { watch } from 'vue';
+import { watch, watchEffect } from 'vue';
 import { Alerta, AxiosWatch, Deleted, Formater, host, Updated } from '../js/helpers';
 import BudgetRequest from '../models/request/BudgetRequest';
 import { useCounterStore } from '../stores/counter';
@@ -92,6 +102,8 @@ watch(() => [counterStore.operationid, counterStore.componentKey], (first, secon
     AxiosWatch(counterStore.budgetList, host + "/api/budget", false)
 });
 
+var formatter = Formater()
+
 
 function loadDataModalExpense(valor: any) {
 
@@ -101,7 +113,7 @@ function loadDataModalExpense(valor: any) {
 
 async function updated(valor: any) {
 
-    let urlBudget= host + "/api/budget/" + valor._id;
+    let urlBudget = host + "/api/budget/" + valor._id;
 
     let budgetRequest = new BudgetRequest()
     budgetRequest.amount = valor.amount

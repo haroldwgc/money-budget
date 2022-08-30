@@ -12,7 +12,7 @@
 <script lang="ts" setup>
 import { useCounterStore } from '../stores/counter'
 import NavBar from '../components/NavBar.vue'
-import { onMounted, watch } from 'vue';
+import { onMounted, watch, watchEffect } from 'vue';
 import axios from 'axios';
 import OperationList from '../components/OperationLis.vue'
 import ListBudget from '../components/ListBudget.vue';
@@ -109,5 +109,15 @@ watch(() => [counterStore.operationid, counterStore.componentKey], (first, secon
 
 
 });
+
+watchEffect(()=>{
+   let cont = 0;
+counterStore.totalBudgetList.map(x => {
+   cont += x.budgetAmount
+});
+counterStore.totalBudgetExpense=cont;
+
+
+})
 
 </script>

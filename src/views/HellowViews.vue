@@ -6,7 +6,8 @@
     <div>
         <OperationList v-if="counterStore.operationList.length > 1" />
         <p></p>
-        <Summary v-if="counterStore.entryList.length > 0 && counterStore.expenseList.length > 0" />
+        <Summary1 v-if="counterStore.entryList.length > 0 && counterStore.expenseList.length > 0"
+            :key="counterStore.componentKey" />
         <ListEntry v-if="counterStore.entryList.length > 0" />
         <p></p>
         <ListExpense v-if="counterStore.expenseList.length > 0" />
@@ -21,11 +22,12 @@ import axios from 'axios'
 import OperationList from '../components/OperationLis.vue'
 import ListExpense from '../components/ListExpense.vue';
 import ListEntry from '../components/ListEntry.vue';
-import Summary from '../components/Summary.vue';
+import Summary1 from '../components/Summary.vue';
 import { host, Alerta } from '../js/helpers';
 import router from '../routes';
 import Auth from '../components/Auth.vue';
 import Alert from '../components/Alert.vue';
+
 
 
 const counterStore = useCounterStore();
